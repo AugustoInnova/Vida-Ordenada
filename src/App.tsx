@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { useRef, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Play, ArrowRight, Mail,
   Layers, Key, Palette, Package, CheckCircle, Leaf,
@@ -48,14 +49,24 @@ const fadeUp = {
 // ─── Pricing Section ─────────────────────────────────────────────────────────
 
 function PricingSection() {
+  const { t } = useTranslation();
   const [yearly, setYearly] = useState(false);
   const proPrice = yearly ? 3 : 5;
-  const proPeriod = yearly ? "/ mes · $36/año" : "/ mes";
+  const proPeriod = yearly ? t("pricing.pro.periodYearly") : t("pricing.pro.periodMonthly");
+
+  const freeFeatures = t("pricing.free.features", { returnObjects: true }) as string[];
+  const proFeatures = t("pricing.pro.features", { returnObjects: true }) as string[];
+  const proHighlightIndex = t("pricing.pro.proHighlightIndex") as unknown as number;
 
   return (
-    <section className="relative w-full py-28 px-6 overflow-hidden">
-      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
-        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1774768412/Character_swimming_looped_202603290413_rtuw11.mp4" type="video/mp4" />
+    <section id="precios" className="relative w-full py-28 px-6 overflow-hidden">
+      {/* Desktop video (≥ md) */}
+      <video autoPlay muted loop playsInline preload="none" className="hidden md:block absolute inset-0 w-full h-full object-cover">
+        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775885790/seccion_de_compra_lalkxn.mp4" type="video/mp4" />
+      </video>
+      {/* Mobile video (< md) — portrait crop via Cloudinary for sharper rendering on tall mobile viewport */}
+      <video autoPlay muted loop playsInline preload="metadata" className="block md:hidden absolute inset-0 w-full h-full object-cover object-center">
+        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/q_auto:best,f_auto,c_fill,g_center,ar_9:16,w_720/v1774768412/Character_swimming_looped_202603290413_rtuw11.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/60" />
 
@@ -65,17 +76,17 @@ function PricingSection() {
           <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="text-[10px] font-sans font-semibold tracking-[0.25em] uppercase mb-4"
             style={{ color: "#8ECB9B" }}>
-            Planes
+            {t("pricing.badge")}
           </motion.p>
           <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ delay: 0.05, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             className="text-white mb-4" style={{ fontSize: "2.2rem" }}>
-            Empezá hoy
+            {t("pricing.title")}
           </motion.h2>
           <motion.p initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ delay: 0.1 }}
             className="text-white/80 font-sans font-normal text-base max-w-md mx-auto mb-8">
-            Elegí el plan que se adapta a tu estilo de vida. Sin sorpresas, sin letra chica.
+            {t("pricing.subtitle")}
           </motion.p>
 
           {/* Toggle */}
@@ -94,7 +105,7 @@ function PricingSection() {
                   className="absolute inset-0 rounded-full"
                   style={{ backgroundColor: "#8ECB9B" }} />
               )}
-              <span className="relative">Mensual</span>
+              <span className="relative">{t("pricing.monthly")}</span>
             </button>
             {/* Yearly */}
             <button
@@ -107,7 +118,7 @@ function PricingSection() {
                   className="absolute inset-0 rounded-full"
                   style={{ backgroundColor: "#8ECB9B" }} />
               )}
-              <span className="relative">Anual</span>
+              <span className="relative">{t("pricing.yearly")}</span>
             </button>
           </motion.div>
 
@@ -118,12 +129,12 @@ function PricingSection() {
                 initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
                 className="text-[7px] font-bold px-3 py-1 rounded-full"
                 style={{ backgroundColor: "#8ECB9B", color: "#000", fontFamily: "'Press Start 2P', monospace" }}>
-                ✦ Ahorrás 40% con el plan anual
+                {t("pricing.savingsBadge")}
               </motion.span>
             ) : (
               <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                 className="text-sm font-sans font-semibold" style={{ color: "#8ECB9B" }}>
-                Pasate al anual y ahorrás 40% →
+                {t("pricing.savingsHint")}
               </motion.p>
             )}
           </div>
@@ -137,18 +148,13 @@ function PricingSection() {
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-3xl p-8 flex flex-col"
             style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", border: "1px solid rgba(255,255,255,0.15)" }}>
-            <p className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase text-white/40 mb-5">Free</p>
+            <p className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase text-white/40 mb-5">{t("pricing.free.name")}</p>
             <div className="mb-6">
               <span className="text-white" style={{ fontFamily: "'Press Start 2P', monospace", fontSize: "2.7rem" }}>$0</span>
-              <span className="text-white/40 font-sans text-sm ml-2">/ siempre</span>
+              <span className="text-white/40 font-sans text-sm ml-2">{t("pricing.free.period")}</span>
             </div>
             <ul className="space-y-3 mb-8 flex-1">
-              {[
-                "Registro ilimitado de gastos e ingresos",
-                "Categorías básicas (comida, transporte, hogar…)",
-                "Gráficos simples por mes",
-                "Exportar datos en CSV",
-              ].map((f) => (
+              {freeFeatures.map((f) => (
                 <li key={f} className="flex items-start gap-3">
                   <span className="mt-0.5 w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-bold text-black" style={{ backgroundColor: "#8ECB9B" }}>✓</span>
                   <span className="text-white/60 font-sans text-sm leading-snug">{f}</span>
@@ -158,7 +164,7 @@ function PricingSection() {
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
               className="w-full py-3.5 rounded-xl font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
               style={{ background: "rgba(255,255,255,0.12)", color: "#fff", border: "1px solid rgba(255,255,255,0.2)" }}>
-              Empezar gratis
+              {t("pricing.free.cta")}
             </motion.button>
           </motion.div>
 
@@ -168,9 +174,9 @@ function PricingSection() {
             className="rounded-3xl p-8 flex flex-col relative"
             style={{ background: "rgba(255,255,255,0.14)", backdropFilter: "blur(32px)", WebkitBackdropFilter: "blur(32px)", border: "1px solid rgba(142,203,155,0.5)", boxShadow: "0 0 40px rgba(142,203,155,0.15)" }}>
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-              <span className="px-4 py-1.5 rounded-full text-[9px] font-sans font-bold tracking-[0.2em] uppercase text-black" style={{ backgroundColor: "#8ECB9B" }}>✦ Popular</span>
+              <span className="px-4 py-1.5 rounded-full text-[9px] font-sans font-bold tracking-[0.2em] uppercase text-black" style={{ backgroundColor: "#8ECB9B" }}>{t("pricing.pro.popular")}</span>
             </div>
-            <p className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase mb-5" style={{ color: "#8ECB9B" }}>Pro</p>
+            <p className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase mb-5" style={{ color: "#8ECB9B" }}>{t("pricing.pro.name")}</p>
 
             {/* Animated price */}
             <div className="mb-6 flex items-baseline gap-2 flex-wrap">
@@ -203,24 +209,20 @@ function PricingSection() {
             </div>
 
             <ul className="space-y-3 mb-8 flex-1">
-              {[
-                { text: "Todo lo del plan Free incluido", highlight: false },
-                { text: "WhatsApp bot con IA para registrar gastos por chat", highlight: true },
-                { text: "Presupuestos y metas de ahorro", highlight: false },
-                { text: "Sincronización en la nube (todos tus dispositivos)", highlight: false },
-                { text: "Exportar en PDF y Excel", highlight: false },
-                { text: "Soporte prioritario", highlight: false },
-              ].map((f) => (
-                <li key={f.text} className="flex items-start gap-3">
-                  <span className="mt-0.5 w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-bold text-black" style={{ backgroundColor: "#8ECB9B" }}>✓</span>
-                  <span className="font-sans text-sm leading-snug" style={{ color: f.highlight ? "#8ECB9B" : "rgba(255,255,255,0.8)" }}>{f.text}</span>
-                </li>
-              ))}
+              {proFeatures.map((text, idx) => {
+                const highlight = idx === proHighlightIndex;
+                return (
+                  <li key={text} className="flex items-start gap-3">
+                    <span className="mt-0.5 w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-[9px] font-bold text-black" style={{ backgroundColor: "#8ECB9B" }}>✓</span>
+                    <span className="font-sans text-sm leading-snug" style={{ color: highlight ? "#8ECB9B" : "rgba(255,255,255,0.8)" }}>{text}</span>
+                  </li>
+                );
+              })}
             </ul>
             <motion.button whileHover={{ scale: 1.02, backgroundColor: "#6db87d" }} whileTap={{ scale: 0.97 }}
               className="w-full py-3.5 rounded-xl font-sans text-[11px] font-bold tracking-[0.15em] uppercase text-black transition-colors"
               style={{ backgroundColor: "#8ECB9B" }}>
-              Empezar Pro
+              {t("pricing.pro.cta")}
             </motion.button>
           </motion.div>
         </div>
@@ -232,14 +234,14 @@ function PricingSection() {
               color: "#8ECB9B",
               textShadow: "0 0 8px rgba(142,203,155,0.4), 0 0 20px rgba(142,203,155,0.2)",
             }}>
-            7 días gratis para que pruebes el plan Pro
+            {t("pricing.pro.trial")}
           </p>
           <p className="text-sm font-semibold"
             style={{
               color: "#8ECB9B",
               textShadow: "0 0 8px rgba(142,203,155,0.4), 0 0 20px rgba(142,203,155,0.2)",
             }}>
-            Cancelá cuando quieras · Sin tarjeta de crédito para el plan Free
+            {t("pricing.pro.disclaimer")}
           </p>
         </motion.div>
       </div>
@@ -249,25 +251,36 @@ function PricingSection() {
 
 // ─── Sticky Scroll Section ───────────────────────────────────────────────────
 
-const stickySlides = [
+// Structural/styling data only. Translatable text (labels, titles, descriptions,
+// phoneContent labels/statuses, phoneTitle/Subtitle) lives in translation files
+// under `sticky.slides` and is merged in inside StickyScroll.
+type StickySlideMeta = {
+  bg: string;
+  navTheme: string;
+  textColor: string;
+  subColor: string;
+  phoneAccent: string;
+  phoneBg: string;
+  phoneContent: { icon: string; done: boolean }[];
+  image?: string;
+  video?: string;
+  noFrame?: boolean;
+};
+
+const stickySlidesMeta: StickySlideMeta[] = [
   {
     bg: "#EDE8E0",
     navTheme: "light",
     textColor: "#2c2c2c",
     subColor: "rgba(0,0,0,0.65)",
-    label: "REGISTRO DE GASTOS",
-    title: "Registrá\nen segundos",
-    desc: "Cada gasto en su categoría, al instante. Sin planillas, sin complicaciones. Solo abrís la app, cargás el monto y listo — tu historial siempre al día.",
     phoneAccent: "#5c7260",
     phoneBg: "#EDE8E0",
     phoneContent: [
-      { icon: "🍔", label: "Delivery", status: "-$2.800", done: true },
-      { icon: "🚌", label: "Transporte", status: "-$1.200", done: true },
-      { icon: "💊", label: "Farmacia", status: "-$3.500", done: true },
-      { icon: "🎬", label: "Streaming", status: "-$1.800", done: false },
+      { icon: "🍔", done: true },
+      { icon: "🚌", done: true },
+      { icon: "💊", done: true },
+      { icon: "🎬", done: false },
     ],
-    phoneTitle: "Hoy · $9.300",
-    phoneSubtitle: "4 movimientos registrados",
     image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853456/22_e9oykj.png",
   },
   {
@@ -275,19 +288,14 @@ const stickySlides = [
     navTheme: "dark",
     textColor: "#1a1a1a",
     subColor: "rgba(0,0,0,0.5)",
-    label: "REPORTES VISUALES",
-    title: "Entendé\ntu plata",
-    desc: "Gráficos claros de en qué se va tu plata cada mes. Por categoría, por semana, por hábito. Vas a ver patrones que nunca habías notado.",
     phoneAccent: "#1a1a1a",
     phoneBg: "#f5f5f5",
     phoneContent: [
-      { icon: "🍔", label: "Comida · 38%", status: "$32.100", done: true },
-      { icon: "🏠", label: "Hogar · 27%", status: "$22.800", done: true },
-      { icon: "🚗", label: "Transporte · 20%", status: "$16.900", done: true },
-      { icon: "🎬", label: "Ocio · 15%", status: "$12.700", done: false },
+      { icon: "🍔", done: true },
+      { icon: "🏠", done: true },
+      { icon: "🚗", done: true },
+      { icon: "🎬", done: false },
     ],
-    phoneTitle: "Marzo · $84.500",
-    phoneSubtitle: "↓ 12% vs mes anterior",
     image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853450/14_zkjbyz.png",
   },
   {
@@ -295,21 +303,53 @@ const stickySlides = [
     navTheme: "dark",
     textColor: "#ffffff",
     subColor: "rgba(255,255,255,0.5)",
-    label: "WHATSAPP CON IA",
-    title: "Por WhatsApp\ncon IA",
-    desc: "Mandále un mensaje, un audio o una foto del ticket y SAMU lo registra solo en la app. Sin formularios. Sin excusas. Solo hablás. Cuidado, a SAMU le gusta dar consejos 😜",
     phoneAccent: "#8ECB9B",
     phoneBg: "#1a1a1a",
     phoneContent: [
-      { icon: "💬", label: "Gasté $1500 en el colectivo", status: "✅ Transporte", done: true },
-      { icon: "💬", label: "Almuerzo $3200", status: "✅ Comida", done: true },
-      { icon: "💬", label: "¿Cuánto gasté hoy?", status: "$4.700 en 2 gastos", done: true },
-      { icon: "💬", label: "Café $900", status: "✅ Registrando...", done: false },
+      { icon: "💬", done: true },
+      { icon: "💬", done: true },
+      { icon: "💬", done: true },
+      { icon: "💬", done: false },
     ],
-    phoneTitle: "Samu · Bot IA",
-    phoneSubtitle: "● en línea ahora",
   },
 ];
+
+type PhoneContentItem = { icon: string; label: string; status: string; done: boolean };
+type StickySlide = Omit<StickySlideMeta, "phoneContent"> & {
+  label: string;
+  desc: string;
+  phoneTitle: string;
+  phoneSubtitle: string;
+  phoneContent: PhoneContentItem[];
+};
+
+type StickySlideTranslation = {
+  label: string;
+  titleH1?: string;
+  titleH2?: string;
+  titleMid?: string;
+  titlePre?: string;
+  desc: string;
+  phoneTitle: string;
+  phoneSubtitle: string;
+  phoneContent: { label: string; status: string }[];
+};
+
+function buildStickySlides(slidesText: StickySlideTranslation[]): StickySlide[] {
+  return stickySlidesMeta.map((meta, i) => ({
+    ...meta,
+    label: slidesText[i].label,
+    desc: slidesText[i].desc,
+    phoneTitle: slidesText[i].phoneTitle,
+    phoneSubtitle: slidesText[i].phoneSubtitle,
+    phoneContent: meta.phoneContent.map((pc, j) => ({
+      icon: pc.icon,
+      done: pc.done,
+      label: slidesText[i].phoneContent[j].label,
+      status: slidesText[i].phoneContent[j].status,
+    })),
+  }));
+}
 
 // QR-like SVG placeholder con patrón fijo
 function QRPlaceholder({ fg }: { fg: string }) {
@@ -347,7 +387,7 @@ function QRPlaceholder({ fg }: { fg: string }) {
   );
 }
 
-function PhoneScreen({ slide, visible }: { slide: typeof stickySlides[0]; visible: boolean }) {
+function PhoneScreen({ slide, visible }: { slide: StickySlide; visible: boolean }) {
   return (
     <AnimatePresence mode="wait">
       {visible && (
@@ -358,13 +398,24 @@ function PhoneScreen({ slide, visible }: { slide: typeof stickySlides[0]; visibl
           exit={{ opacity: 0, y: -16 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0 flex flex-col"
-          style={{ backgroundColor: slide.image ? "#000" : slide.phoneBg }}
+          style={{ backgroundColor: slide.video ? "transparent" : slide.image ? "#000" : slide.phoneBg }}
         >
-          {/* Si hay imagen real, mostrarla directamente */}
-          {slide.image ? (
+          {/* Si hay video real, mostrarlo directamente (sin marco) */}
+          {slide.video ? (
+            <video
+              src={slide.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+            />
+          ) : slide.image ? (
             <img
               src={slide.image}
-              alt={slide.title}
+              alt={slide.label}
+              loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
             />
           ) : <>
@@ -462,11 +513,16 @@ function PhoneScreen({ slide, visible }: { slide: typeof stickySlides[0]; visibl
 }
 
 function StickyScroll() {
+  const { t } = useTranslation();
+  const slidesText = t("sticky.slides", { returnObjects: true }) as StickySlideTranslation[];
+  const inputMethodsLabels = (t("sticky.inputMethods", { returnObjects: true }) as { label: string }[]).map(i => i.label);
+  const stickySlides = buildStickySlides(slidesText);
+
   const [active, setActive] = useState(0);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const observers = stickySlides.map((_, i) => {
+    const observers = stickySlidesMeta.map((_, i) => {
       const obs = new IntersectionObserver(
         ([entry]) => { if (entry.isIntersecting) setActive(i); },
         { threshold: 0.5 }
@@ -490,14 +546,20 @@ function StickyScroll() {
         <div className="absolute w-64 h-64 rounded-full blur-[80px] opacity-20 pointer-events-none transition-all duration-700"
           style={{ backgroundColor: slide.phoneAccent }} />
 
-        {/* Phone frame */}
+        {/* Phone frame — se desarma cuando el slide activo tiene noFrame (para ver contenido "al aire") */}
         <motion.div
           animate={{ y: [0, -14, 0] }}
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
-          className="relative w-[276px] md:w-[290px] lg:w-[322px] aspect-[9/19] rounded-[44px] overflow-hidden border-[8px] border-[#1c1c1e]"
-          style={{
-            boxShadow: "0 40px 80px rgba(0,0,0,0.4), 0 0 0 4.3px rgba(142,203,155,0.55), 0 0 66px 13px rgba(142,203,155,0.25), 0 0 148px 25px rgba(142,203,155,0.10)"
-          }}
+          className={
+            slide.noFrame
+              ? "relative w-[320px] md:w-[340px] lg:w-[380px] aspect-[9/19] overflow-hidden"
+              : "relative w-[276px] md:w-[290px] lg:w-[322px] aspect-[9/19] rounded-[44px] overflow-hidden border-[8px] border-[#1c1c1e]"
+          }
+          style={
+            slide.noFrame
+              ? {}
+              : { boxShadow: "0 40px 80px rgba(0,0,0,0.4), 0 0 0 4.3px rgba(142,203,155,0.55), 0 0 66px 13px rgba(142,203,155,0.25), 0 0 148px 25px rgba(142,203,155,0.10)" }
+          }
         >
           {stickySlides.map((s, i) => (
             <PhoneScreen key={s.label} slide={s} visible={i === active} />
@@ -527,15 +589,21 @@ function StickyScroll() {
             className="min-h-screen flex flex-col justify-center px-6 md:px-14 py-16 md:py-0 transition-colors duration-700"
             style={{ backgroundColor: s.bg }}
           >
-            {/* Mobile phone mockup — solo visible en mobile */}
+            {/* Mobile phone mockup — solo visible en mobile. Sin marco cuando el slide tiene noFrame. */}
             <div className="flex md:hidden justify-center mb-10">
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
-                className="relative w-[220px] aspect-[9/19] rounded-[40px] overflow-hidden border-[7px] border-[#1c1c1e]"
-                style={{
-                  boxShadow: "0 30px 60px rgba(0,0,0,0.4), 0 0 0 3px rgba(142,203,155,0.55), 0 0 50px 10px rgba(142,203,155,0.20)"
-                }}
+                className={
+                  s.noFrame
+                    ? "relative w-[260px] aspect-[9/19] overflow-hidden"
+                    : "relative w-[220px] aspect-[9/19] rounded-[40px] overflow-hidden border-[7px] border-[#1c1c1e]"
+                }
+                style={
+                  s.noFrame
+                    ? {}
+                    : { boxShadow: "0 30px 60px rgba(0,0,0,0.4), 0 0 0 3px rgba(142,203,155,0.55), 0 0 50px 10px rgba(142,203,155,0.20)" }
+                }
               >
                 <PhoneScreen slide={s} visible={true} />
               </motion.div>
@@ -561,12 +629,12 @@ function StickyScroll() {
                 style={{ color: s.textColor, whiteSpace: "pre-line" }}
               >
                 {i === 0 ? (
-                  <><span style={{ color: "#8ECB9B" }}>Registrá</span>{"\n"}en <span style={{ color: "#8ECB9B" }}>segundos</span></>
+                  <><span style={{ color: "#8ECB9B" }}>{slidesText[0].titleH1}</span>{slidesText[0].titleMid}<span style={{ color: "#8ECB9B" }}>{slidesText[0].titleH2}</span></>
                 ) : i === 1 ? (
-                  <><span style={{ color: "#EDE8E0" }}>Entendé</span>{"\n"}tu <span style={{ color: "#EDE8E0" }}>plata</span></>
+                  <><span style={{ color: "#EDE8E0" }}>{slidesText[1].titleH1}</span>{slidesText[1].titleMid}<span style={{ color: "#EDE8E0" }}>{slidesText[1].titleH2}</span></>
                 ) : i === 2 ? (
-                  <>Hablale a <span style={{ color: "#8ECB9B" }}>Samu.</span>{"\n"}Él anota <span style={{ color: "#8ECB9B" }}>todo.</span></>
-                ) : s.title}
+                  <>{slidesText[2].titlePre}<span style={{ color: "#8ECB9B" }}>{slidesText[2].titleH1}</span>{slidesText[2].titleMid}<span style={{ color: "#8ECB9B" }}>{slidesText[2].titleH2}</span></>
+                ) : null}
               </motion.h2>
 
               {/* Description */}
@@ -593,9 +661,9 @@ function StickyScroll() {
                   className="flex flex-wrap gap-2 mb-8 md:mb-12"
                 >
                   {[
-                    { icon: "💬", label: "Mensaje de texto" },
-                    { icon: "🎤", label: "Nota de voz" },
-                    { icon: "📸", label: "Foto del gasto" },
+                    { icon: "💬", label: inputMethodsLabels[0] },
+                    { icon: "🎤", label: inputMethodsLabels[1] },
+                    { icon: "📸", label: inputMethodsLabels[2] },
                   ].map(({ icon, label }) => (
                     <div key={label}
                       className="feature-badge flex items-center gap-2 px-3 py-1.5 rounded-full"
@@ -622,7 +690,7 @@ function StickyScroll() {
                 </div>
                 <div>
                   <p className="font-sans text-[13px] md:text-[17px] font-semibold mb-0.5" style={{ color: s.textColor }}>
-                    Descargá la app gratis
+                    {t("sticky.downloadApp")}
                   </p>
                   <p className="font-sans text-[11px] md:text-[15px]" style={{ color: s.subColor }}>
                     vidaordenada.app
@@ -639,40 +707,15 @@ function StickyScroll() {
 
 // ─── FAQ Section ─────────────────────────────────────────────────────────────
 
-const faqItems = [
-  {
-    q: "¿Funciona sin internet?",
-    a: "Sí. Podés registrar gastos e ingresos sin conexión. La app los guarda localmente y los sincroniza con la nube en cuanto tenés señal de nuevo. Nunca perdés nada.",
-  },
-  {
-    q: "¿Cómo funciona el bot de WhatsApp?",
-    a: "Es simple: agregás a Samu como contacto de WhatsApp y le escribís lo que gastaste, por ejemplo 'Almuerzo $1800'. Él lo categoriza y lo registra automáticamente. También podés preguntarle cuánto llevás gastado en el mes.",
-  },
-  {
-    q: "¿Mis datos están seguros?",
-    a: "Totalmente. Tus datos viajan cifrados y se almacenan en servidores seguros. No los compartimos con nadie ni los usamos para publicidad. Tu información financiera es tuya y solo tuya.",
-  },
-  {
-    q: "¿Puedo usar la app en varios dispositivos?",
-    a: "Con el plan Pro, sí. Tu cuenta se sincroniza en tiempo real entre el celular, la tablet y la web. Con el plan Free, los datos quedan guardados localmente en el dispositivo donde los cargaste.",
-  },
-  {
-    q: "¿Qué pasa cuando termina la prueba gratis?",
-    a: "Al terminar los 7 días, tu cuenta pasa automáticamente al plan Free. No se te cobra nada ni se te pide tarjeta. Si querés seguir con las funciones Pro, ahí elegís si suscribirte o no.",
-  },
-  {
-    q: "¿Está disponible para iPhone?",
-    a: "Sí. Vida Ordenada está disponible para iOS (iPhone y iPad), Android y también desde el navegador en cualquier computadora. Descargala desde el App Store, Google Play o entrá directo desde la web.",
-  },
-];
-
 // Los blobs del FAQ usan CSS keyframes para viajar horizontalmente
 
 function FAQSection() {
+  const { t } = useTranslation();
+  const faqItems = t("faq.items", { returnObjects: true }) as { q: string; a: string }[];
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="py-24 px-6" style={{ background: "#000000", position: "relative", overflow: "hidden" }}>
+    <section id="faq" className="py-24 px-6" style={{ background: "#000000", position: "relative", overflow: "hidden" }}>
       {/* Blobs verdes — viajan de izquierda a derecha/derecha a izquierda con CSS keyframes */}
       <style>{`
         @keyframes faq-blob-ltr {
@@ -731,17 +774,17 @@ function FAQSection() {
             className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-sans font-medium"
             style={{ color: "#000000", border: "1.5px solid #8ECB9B", background: "#8ECB9B" }}
           >
-            <span style={{ fontWeight: 700, fontSize: "1.1em" }}>+</span> FAQ
+            <span style={{ fontWeight: 700, fontSize: "1.1em" }}>+</span> {t("faq.badge")}
           </span>
         </div>
 
         {/* Title */}
         <h2 className="text-center text-white mb-12" style={{ fontFamily: "inherit" }}>
           <span style={{ fontFamily: "'Press Start 2P', monospace", fontSize: "1.16em", lineHeight: 1.6 }}>
-            Preguntas{" "}
+            {t("faq.titleWord1")}{" "}
           </span>
           <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: "1.6em", fontStyle: "italic", fontWeight: 400 }}>
-            Frecuentes
+            {t("faq.titleWord2")}
           </span>
         </h2>
 
@@ -791,12 +834,69 @@ function FAQSection() {
   );
 }
 
+// ─── Flag SVGs ───────────────────────────────────────────────────────────────
+// Inline SVGs porque Windows 10 no soporta emojis de banderas regionales
+// (los renderiza como pares de letras "AR", "GB", "BR").
+
+function FlagAR() {
+  return (
+    <svg viewBox="0 0 18 12" width="22" height="15" className="rounded-[2px] block shadow-sm">
+      <rect width="18" height="12" fill="#74ACDF" />
+      <rect y="4" width="18" height="4" fill="#FFFFFF" />
+      <circle cx="9" cy="6" r="1.1" fill="#F6B40E" stroke="#85340A" strokeWidth="0.12" />
+    </svg>
+  );
+}
+
+function FlagGB() {
+  return (
+    <svg viewBox="0 0 60 30" width="22" height="15" className="rounded-[2px] block shadow-sm overflow-hidden">
+      <clipPath id="gb-clip"><rect width="60" height="30" /></clipPath>
+      <g clipPath="url(#gb-clip)">
+        <rect width="60" height="30" fill="#012169" />
+        {/* White diagonals */}
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFFFFF" strokeWidth="6" />
+        {/* Red diagonals */}
+        <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="3" />
+        {/* White cross */}
+        <path d="M30,0 V30 M0,15 H60" stroke="#FFFFFF" strokeWidth="10" />
+        {/* Red cross */}
+        <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="5" />
+      </g>
+    </svg>
+  );
+}
+
+function FlagBR() {
+  return (
+    <svg viewBox="0 0 70 49" width="22" height="15" className="rounded-[2px] block shadow-sm">
+      <rect width="70" height="49" fill="#009C3B" />
+      <polygon points="35,6 64,24.5 35,43 6,24.5" fill="#FEDF00" />
+      <circle cx="35" cy="24.5" r="10" fill="#002776" />
+    </svg>
+  );
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────────
 
+const LANGUAGES = [
+  { code: "es", Flag: FlagAR, label: "ES" },
+  { code: "en", Flag: FlagGB, label: "EN" },
+  { code: "pt", Flag: FlagBR, label: "PT" },
+] as const;
+
 export default function App() {
+  const { t, i18n } = useTranslation();
+  const controlCards = t("control.cards", { returnObjects: true }) as { title: string; desc: string }[];
+  const empresaLinks = t("footer.empresa.links", { returnObjects: true }) as string[];
+  const soporteLinks = t("footer.soporte.links", { returnObjects: true }) as string[];
+
   const heroRef = useRef<HTMLElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const [navDark, setNavDark] = useState(true);
+  const [mobileLangOpen, setMobileLangOpen] = useState(false);
+  const activeLang = LANGUAGES.find(l => i18n.resolvedLanguage === l.code || i18n.language === l.code) ?? LANGUAGES[0];
+  const ActiveFlag = activeLang.Flag;
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
 
@@ -839,8 +939,8 @@ export default function App() {
 
         {/* Video background */}
         <motion.div style={{ y: heroY }} className="absolute inset-0 z-0 opacity-45">
-          <video autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1774732341/Create_loop_video_202603281655_s7gyot.mp4" type="video/mp4" />
+          <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
+            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775884810/VIDEO_PRINCIPAL_DEL_SITIO_upskrh.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
@@ -862,16 +962,21 @@ export default function App() {
           }}
         >
           {/* Logo icon — WhatsApp bot */}
-          <a href="https://wa.me/" target="_blank" rel="noopener noreferrer"
+          <a href="https://wa.me/50769999999" target="_blank" rel="noopener noreferrer"
             className="text-xl leading-none"
             style={{ filter: "sepia(1) saturate(8) hue-rotate(90deg) brightness(0.85)" }}
-            title="Hablar con el bot de WhatsApp"
+            title={t("nav.ariaSamu")}
+            aria-label={t("nav.ariaSamu")}
           >🤖</a>
 
           {/* Links */}
           <div className="hidden md:flex items-center gap-7">
-            {[["FUNCIONES", "#hogar"], ["PRECIOS", "#precios"], ["FAQ", "#faq"]].map(([label, href]) => (
-              <a key={label} href={href}
+            {[
+              [t("nav.features"), "#hogar"],
+              [t("nav.pricing"), "#precios"],
+              [t("nav.faq"), "#faq"],
+            ].map(([label, href]) => (
+              <a key={href} href={href}
                 className="text-[11px] uppercase tracking-[0.22em] font-semibold transition-colors"
                 style={{ color: navDark ? "rgba(255,255,255,0.7)" : "rgba(0,0,0,0.6)" }}>
                 {label}
@@ -882,17 +987,132 @@ export default function App() {
           {/* CTA button */}
           <motion.a
             whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            href="#"
+            href="#precios"
             className="flex items-center gap-2 px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.18em] transition-colors"
             style={{
               background: navDark ? "#8ECB9B" : "#111111",
               color: navDark ? "#000000" : "#ffffff",
             }}
           >
-            Empezar gratis
+            {t("nav.cta")}
             <Play className="w-2.5 h-2.5 fill-current" />
           </motion.a>
         </motion.nav>
+
+        {/* ── LANGUAGE SELECTOR — desktop: floating vertical pill on the left ── */}
+        <motion.div
+          initial={{ x: -80, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+          className="hidden md:flex fixed top-1/2 left-6 -translate-y-1/2 z-50 flex-col items-center gap-1 p-1.5 rounded-full backdrop-blur-2xl font-sans transition-all duration-300"
+          style={{
+            background: navDark ? "rgba(255,255,255,0.08)" : "rgba(237,232,224,0.95)",
+            border: navDark ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(0,0,0,0.10)",
+            boxShadow: navDark ? "0 8px 32px rgba(0,0,0,0.35)" : "0 4px 24px rgba(0,0,0,0.10)",
+          }}
+        >
+          {LANGUAGES.map(({ code, Flag, label }) => {
+            const active = i18n.resolvedLanguage === code || i18n.language === code;
+            return (
+              <button
+                key={code}
+                onClick={() => i18n.changeLanguage(code)}
+                aria-label={label}
+                title={label}
+                className="flex flex-col items-center justify-center w-11 h-11 rounded-full text-[9px] font-bold uppercase tracking-wide transition-all"
+                style={{
+                  color: active
+                    ? (navDark ? "#000000" : "#ffffff")
+                    : (navDark ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.5)"),
+                  background: active
+                    ? (navDark ? "#8ECB9B" : "#111111")
+                    : "transparent",
+                }}
+              >
+                <Flag />
+                <span className="leading-none mt-0.5">{label}</span>
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* ── LANGUAGE SELECTOR — mobile: collapsed mini button on bottom-left, expands on tap ── */}
+        <div className="md:hidden">
+          {/* Backdrop to close when tapping outside */}
+          <AnimatePresence>
+            {mobileLangOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setMobileLangOpen(false)}
+                className="fixed inset-0 z-40"
+                style={{ background: "transparent" }}
+              />
+            )}
+          </AnimatePresence>
+
+          {/* Button + expanded popup, fixed bottom-left */}
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            className="fixed bottom-3 left-3 z-50 flex flex-col items-start gap-1"
+          >
+            {/* Expanded options (stack above the collapsed button) */}
+            <AnimatePresence>
+              {mobileLangOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex flex-col items-center gap-1 p-1 rounded-full backdrop-blur-2xl"
+                  style={{
+                    background: navDark ? "rgba(255,255,255,0.12)" : "rgba(237,232,224,0.95)",
+                    border: navDark ? "1px solid rgba(255,255,255,0.22)" : "1px solid rgba(0,0,0,0.10)",
+                    boxShadow: navDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.15)",
+                  }}
+                >
+                  {LANGUAGES.filter(l => l.code !== activeLang.code).map(({ code, Flag, label }) => (
+                    <button
+                      key={code}
+                      onClick={() => {
+                        i18n.changeLanguage(code);
+                        setMobileLangOpen(false);
+                      }}
+                      aria-label={label}
+                      title={label}
+                      className="w-7 h-7 rounded-full flex items-center justify-center transition-all active:scale-90"
+                      style={{
+                        color: navDark ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.7)",
+                        background: "transparent",
+                      }}
+                    >
+                      <Flag />
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Collapsed / trigger button (always visible, shows current language) */}
+            <button
+              onClick={() => setMobileLangOpen(v => !v)}
+              aria-label={`Idioma: ${activeLang.label}`}
+              aria-expanded={mobileLangOpen}
+              className="w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-2xl transition-all active:scale-90"
+              style={{
+                background: navDark ? "rgba(255,255,255,0.12)" : "rgba(237,232,224,0.95)",
+                border: navDark ? "1px solid rgba(255,255,255,0.22)" : "1px solid rgba(0,0,0,0.10)",
+                boxShadow: navDark ? "0 4px 16px rgba(0,0,0,0.5)" : "0 2px 12px rgba(0,0,0,0.15)",
+              }}
+            >
+              <ActiveFlag />
+            </button>
+          </motion.div>
+        </div>
 
         {/* ── HERO CONTENT — centrado vertical ── */}
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center">
@@ -904,7 +1124,7 @@ export default function App() {
             className="mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-sans text-[11px] font-semibold tracking-[0.2em] uppercase"
             style={{ background: "rgba(142,203,155,0.15)", border: "1px solid rgba(142,203,155,0.4)", color: "#8ECB9B" }}
           >
-            💰 App de finanzas personales
+            {t("hero.badge")}
           </motion.div>
 
           {/* Título */}
@@ -914,8 +1134,8 @@ export default function App() {
             transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="text-[8.25rem] md:text-[15rem] lg:text-[19.5rem] leading-[1] tracking-tighter text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] mb-6"
           >
-            Tus finanzas,<br />
-            <span style={{ color: "#8ECB9B" }}>en orden.</span>
+            {t("hero.titleLine1")}<br />
+            <span style={{ color: "#8ECB9B" }}>{t("hero.titleLine2")}</span>
           </motion.h1>
 
           {/* Subtítulo */}
@@ -925,8 +1145,8 @@ export default function App() {
             transition={{ duration: 1, delay: 0.55, ease: "easeOut" }}
             className="max-w-xl text-base md:text-xl font-sans font-light text-white/70 leading-relaxed mb-10"
           >
-            Registrá gastos, armá presupuestos y entendé en qué se va tu dinero.<br className="hidden md:block" />
-            Simple, visual y sin excusas.
+            {t("hero.subtitle1")}<br className="hidden md:block" />
+            {t("hero.subtitle2")}
           </motion.p>
 
           {/* CTA principal */}
@@ -937,11 +1157,11 @@ export default function App() {
           >
             <motion.a
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-              href="#"
+              href="#precios"
               className="px-8 py-4 rounded-full font-sans font-bold text-sm tracking-wide text-black"
               style={{ backgroundColor: "#8ECB9B", boxShadow: "0 0 32px rgba(142,203,155,0.4)" }}
             >
-              Empezar gratis →
+              {t("hero.cta")}
             </motion.a>
           </motion.div>
 
@@ -951,18 +1171,18 @@ export default function App() {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="flex flex-col items-center gap-4"
           >
-            <span className="text-[11px] font-sans text-white/30 uppercase tracking-[0.2em]">Disponible en</span>
+            <span className="text-[11px] font-sans text-white/30 uppercase tracking-[0.2em]">{t("hero.availableOn")}</span>
             <div className="flex items-center gap-8">
               {/* App Store */}
-              <div className="flex flex-col items-center gap-2 text-white/50 hover:text-white transition-colors cursor-pointer">
+              <a href="#newsletter" className="flex flex-col items-center gap-2 text-white/50 hover:text-white transition-colors" aria-label={t("hero.ariaAppStore")}>
                 <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
                 <span className="text-[11px] font-sans font-medium">App Store</span>
-              </div>
+              </a>
               <div className="w-px h-10 bg-white/15" />
               {/* Google Play */}
-              <div className="flex flex-col items-center gap-2 text-white/50 hover:text-white transition-colors cursor-pointer">
+              <a href="#newsletter" className="flex flex-col items-center gap-2 text-white/50 hover:text-white transition-colors" aria-label={t("hero.ariaGooglePlay")}>
                 <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5"/>
                   <path d="M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12"/>
@@ -970,7 +1190,7 @@ export default function App() {
                   <path d="M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66"/>
                 </svg>
                 <span className="text-[11px] font-sans font-medium">Google Play</span>
-              </div>
+              </a>
             </div>
           </motion.div>
         </div>
@@ -979,7 +1199,7 @@ export default function App() {
       {/* ══════════════════════════════════════════
           PILARES — phone arc carousel
       ══════════════════════════════════════════ */}
-      <section data-nav-theme="light" className="relative w-full overflow-hidden select-none"
+      <section id="funciones" data-nav-theme="light" className="relative w-full overflow-hidden select-none"
         style={{ background: "#EDE8E0" }}>
         {/* ── ARC CAROUSEL — ring rotates, 16 slots (8 imgs × 2), text fija en centro ── */}
         {/* Anillo: centro en (50%, 860px), radio 560px, gira 360° cada 120s        */}
@@ -1042,6 +1262,7 @@ export default function App() {
                     <img
                       src={srcs[i % 8]}
                       alt={`Screen ${(i % 8) + 1}`}
+                      loading="lazy"
                       style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                     />
                   </div>
@@ -1063,23 +1284,23 @@ export default function App() {
             <div className="mb-4 flex justify-center">
               <span className="px-4 py-1.5 rounded-full border text-[10px] font-semibold tracking-[0.3em] uppercase font-sans"
                 style={{ color: "#000", borderColor: "#8ECB9B", backgroundColor: "#8ECB9B" }}>
-                funciones ✦
+                {t("features.badge")}
               </span>
             </div>
             <h2
               className="text-black mb-3 tracking-tight"
               style={{ fontFamily: "'Press Start 2P', monospace", fontSize: "clamp(0.62rem, 1.5vw, 0.9rem)", lineHeight: 1.9 }}
             >
-              Todo lo que necesitás para entender tu plata
+              {t("features.title")}
             </h2>
             <p className="text-black/50 text-sm font-light font-sans leading-relaxed mb-5">
-              Sin planillas, sin complicaciones.
+              {t("features.subtitle")}
             </p>
             <button
               className="px-7 py-3 rounded-full font-sans font-bold text-sm text-black tracking-wide hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "#8ECB9B" }}
             >
-              Empezá gratis
+              {t("features.cta")}
             </button>
           </div>
         </div>
@@ -1089,29 +1310,28 @@ export default function App() {
           SPLIT — phone mockup + content
       ══════════════════════════════════════════ */}
       <section data-nav-theme="dark" className="relative overflow-hidden" style={{ backgroundColor: "#000000" }}>
-        <div className="grid md:grid-cols-2 min-h-[280px]">
+        <div className="grid md:grid-cols-2 min-h-[280px] items-stretch">
 
           {/* LEFT — phone mockup */}
-          <div className="relative flex items-center justify-center overflow-hidden min-h-[280px]"
-            style={{ backgroundColor: "#000000" }}>
+          <div className="relative flex items-center justify-center overflow-hidden py-10 md:py-16 px-4 md:px-8"
+            style={{ backgroundColor: "#000000", minHeight: "clamp(320px, 55vw, 640px)" }}>
             {/* Green decorative blobs */}
-            <div className="absolute top-[10%] left-[5%] w-48 h-48 rounded-full blur-[80px] opacity-50 pointer-events-none"
+            <div className="absolute top-[10%] left-[5%] w-64 h-64 rounded-full blur-[90px] opacity-50 pointer-events-none"
               style={{ backgroundColor: "#8ECB9B" }} />
-            <div className="absolute bottom-[15%] right-[10%] w-32 h-32 rounded-full blur-[60px] opacity-35 pointer-events-none"
+            <div className="absolute bottom-[15%] right-[10%] w-48 h-48 rounded-full blur-[70px] opacity-35 pointer-events-none"
               style={{ backgroundColor: "#8ECB9B" }} />
 
             {/* Video */}
             <video
-              autoPlay muted loop playsInline
-              className="relative z-20 object-cover"
+              autoPlay muted loop playsInline preload="metadata"
+              className="relative z-20 object-contain w-full h-auto"
               style={{
-                width: "80%",
-                maxWidth: "360px",
-                borderRadius: "20px",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.15)",
+                maxWidth: "min(92%, 600px)",
+                borderRadius: "24px",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(142,203,155,0.15)",
               }}
             >
-              <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1774970957/kling_20260331_%E4%BD%9C%E5%93%81_create_loo_5980_0_dyehop.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775883988/hf_20260411_045213_b78e7a30-694c-440f-9ad3-b8bb9dee3212_q3m4lz.mp4" type="video/mp4" />
             </video>
 
           </div>
@@ -1123,7 +1343,7 @@ export default function App() {
               viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="font-serif text-4xl md:text-5xl leading-tight mb-6 float-center text-white"
             >
-              <span style={{ color: "#8ECB9B" }}>Controlá</span> tu plata,<br />en un solo lugar
+              <span style={{ color: "#8ECB9B" }}>{t("control.titleHighlight")}</span> {t("control.titleRest")}<br />{t("control.titleLine2")}
             </motion.h2>
 
             <motion.a
@@ -1132,7 +1352,7 @@ export default function App() {
               href="#funciones"
               className="inline-flex items-center gap-2 text-base font-semibold text-white font-sans mb-5 group w-fit border-b-2 border-white/30 pb-0.5 hover:border-[#8ECB9B] hover:text-[#8ECB9B] transition-colors"
             >
-              Conocé todas las funciones
+              {t("control.learnMore")}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </motion.a>
 
@@ -1141,7 +1361,7 @@ export default function App() {
               viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}
               className="text-white/70 text-sm font-sans leading-relaxed mb-10 max-w-sm font-light"
             >
-              Registrá cada gasto en segundos, visualizá en qué se va tu dinero y tomá mejores decisiones financieras cada mes.
+              {t("control.desc")}
             </motion.p>
 
             <div className="h-px bg-white/10 mb-8" />
@@ -1149,26 +1369,10 @@ export default function App() {
             {/* Four cards */}
             <div className="grid grid-cols-2 gap-4">
               {[
-                {
-                  icon: "💸",
-                  title: "Registro de gastos",
-                  desc: "Anotá ingresos y gastos con categorías en segundos.",
-                },
-                {
-                  icon: "📊",
-                  title: "Gráficos y reportes",
-                  desc: "Visualizá en qué gastás cada mes de forma clara.",
-                },
-                {
-                  icon: "🤖",
-                  title: "Bot de WhatsApp con IA",
-                  desc: "Mandá un mensaje y Samu registra el gasto solo.",
-                },
-                {
-                  icon: "🎯",
-                  title: "Presupuestos y metas",
-                  desc: "Poné límites por categoría y cumplí tus objetivos.",
-                },
+                { icon: "💸", ...controlCards[0] },
+                { icon: "📊", ...controlCards[1] },
+                { icon: "🤖", ...controlCards[2] },
+                { icon: "🎯", ...controlCards[3] },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -1219,34 +1423,37 @@ export default function App() {
         <div className="relative max-w-2xl mx-auto text-center px-6" style={{ zIndex: 10 }}>
           <h2 className="font-serif font-bold text-black leading-tight mb-5"
             style={{ fontSize: "clamp(2.4rem, 5vw, 3.8rem)" }}>
-            ¿Listo para <span style={{ color: "#8ECB9B" }}>ordenar</span><br />tu plata?
+            {t("ctaSection.titlePre")}<span style={{ color: "#8ECB9B" }}>{t("ctaSection.titleHighlight")}</span><br />{t("ctaSection.titlePost")}
           </h2>
           <p className="font-sans text-lg text-black/55 font-light mb-10 leading-relaxed">
-            Descargá Vida Ordenada <span style={{ color: "#8ECB9B" }}>gratis</span>.<br />
-            Disponible en <span style={{ color: "#8ECB9B" }}>App Store</span> y <span style={{ color: "#8ECB9B" }}>Google Play</span>.
+            {t("ctaSection.downloadText")} <span style={{ color: "#8ECB9B" }}>{t("ctaSection.freeHighlight")}</span>.<br />
+            {t("ctaSection.availableText")} <span style={{ color: "#8ECB9B" }}>App Store</span> {t("ctaSection.andText")} <span style={{ color: "#8ECB9B" }}>Google Play</span>.
           </p>
 
           {/* Botones de descarga */}
           <div className="flex items-center justify-center gap-4 flex-wrap">
             {/* App Store */}
-            <a href="#" className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-black text-white hover:bg-neutral-800 transition-colors">
+            <a href="#newsletter" className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-black text-white hover:bg-neutral-800 transition-colors" aria-label={t("ctaSection.ariaAppStore")}>
               <svg viewBox="0 0 384 512" width="20" height="24" fill="white">
                 <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
               </svg>
               <div className="text-left">
-                <div className="text-[10px] font-sans tracking-wider text-white/60 leading-none mb-0.5">Descargar en el</div>
+                <div className="text-[10px] font-sans tracking-wider text-white/60 leading-none mb-0.5">{t("ctaSection.downloadLabel")}</div>
                 <div className="text-[19px] font-sans font-semibold leading-none">App Store</div>
               </div>
             </a>
             {/* Google Play */}
-            <a href="#" className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-black text-white hover:bg-neutral-800 transition-colors">
+            <a href="#newsletter" className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-black text-white hover:bg-neutral-800 transition-colors" aria-label={t("ctaSection.ariaGooglePlay")}>
               <img
                 src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774869659/images_-_Editado_s2vkha.png"
                 alt="Google Play"
+                loading="lazy"
+                width={30}
+                height={30}
                 style={{ width: 30, height: 30, objectFit: "contain" }}
               />
               <div className="text-left">
-                <div className="text-[10px] font-sans tracking-wider text-white/60 leading-none mb-0.5">Disponible en</div>
+                <div className="text-[10px] font-sans tracking-wider text-white/60 leading-none mb-0.5">{t("ctaSection.availableLabel")}</div>
                 <div className="text-[19px] font-sans font-semibold leading-none">Google Play</div>
               </div>
             </a>
@@ -1259,6 +1466,7 @@ export default function App() {
             <img
               src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg"
               alt="Samu"
+              loading="lazy"
               style={{ width: "100%", display: "block", objectFit: "cover" }}
             />
             {/* Gradientes que funden los bordes con el fondo de la sección */}
@@ -1285,7 +1493,8 @@ export default function App() {
           <div className="flex justify-center mb-0">
             <img
               src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774971662/unifica_estas_2_202603311230_twocyc.jpg"
-              alt="Samu"
+              alt="Samu con sobre de email"
+              loading="lazy"
               style={{ height: 140, width: "auto", objectFit: "contain", display: "block", mixBlendMode: "screen" }}
             />
           </div>
@@ -1296,14 +1505,14 @@ export default function App() {
             viewport={{ once: true }} transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="text-white mb-4"
           >
-            Unite a la comunidad
+            {t("newsletter.title")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ delay: 0.15 }}
             className="text-white/45 font-sans font-light text-sm leading-relaxed mb-8"
           >
-            Suscribite y recibí un 10% OFF en tu primer mes Pro.<br />Sin spam, solo contenido que transforma.
+            {t("newsletter.subtitle1")}<br />{t("newsletter.subtitle2")}
           </motion.p>
 
           {/* Form */}
@@ -1315,7 +1524,7 @@ export default function App() {
           >
             <input
               type="email" required value={email} onChange={e => setEmail(e.target.value)}
-              placeholder="Tu email"
+              placeholder={t("newsletter.emailPlaceholder")}
               className="w-full px-5 py-3.5 rounded-full font-sans text-sm text-white placeholder-white/25
                          focus:outline-none transition-colors"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
@@ -1326,7 +1535,7 @@ export default function App() {
               className="w-full py-3.5 rounded-full font-sans text-[11px] font-bold tracking-[0.15em] uppercase transition-colors"
               style={{ backgroundColor: "#8ECB9B", color: "#000" }}
             >
-              {subscribed ? "¡Suscripto! ✓" : "Quiero mi 10% OFF"}
+              {subscribed ? t("newsletter.subscribed") : t("newsletter.cta")}
             </motion.button>
           </motion.form>
 
@@ -1365,12 +1574,12 @@ export default function App() {
           <div className="col-span-2 md:col-span-1">
             <span className="font-serif text-lg font-semibold" style={{ color: "#8ECB9B" }}>Vida Ordenada</span>
             <p className="mt-3 text-white/50 text-sm font-sans leading-relaxed">
-              El arte de vivir con intención. Herramientas para organizar tu hogar, tus hábitos y tu mente.
+              {t("footer.tagline")}
             </p>
             {/* Social icons */}
             <div className="flex gap-4 mt-5">
               {/* Instagram */}
-              <a href="#" aria-label="Instagram" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
+              <a href="https://instagram.com/vidaordenada" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#8ECB9B")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>
                 <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -1378,7 +1587,7 @@ export default function App() {
                 </svg>
               </a>
               {/* LinkedIn */}
-              <a href="#" aria-label="LinkedIn" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
+              <a href="https://linkedin.com/company/vidaordenada" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#8ECB9B")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>
                 <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -1386,7 +1595,7 @@ export default function App() {
                 </svg>
               </a>
               {/* TikTok */}
-              <a href="#" aria-label="TikTok" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
+              <a href="https://tiktok.com/@vidaordenada" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#8ECB9B")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>
                 <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -1394,7 +1603,7 @@ export default function App() {
                 </svg>
               </a>
               {/* YouTube */}
-              <a href="#" aria-label="YouTube" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
+              <a href="https://youtube.com/@vidaordenada" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#8ECB9B")}
                 onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>
                 <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
@@ -1406,11 +1615,16 @@ export default function App() {
 
           {/* Col 2 — Empresa */}
           <div>
-            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">Empresa</h4>
+            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">{t("footer.empresa.title")}</h4>
             <ul className="space-y-3">
-              {["Sobre nosotros", "Blog", "Comunidad", "Testimonios"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="font-sans text-sm text-white/50 hover:text-white transition-colors">{link}</a>
+              {[
+                { label: empresaLinks[0], href: "#newsletter" },
+                { label: empresaLinks[1], href: "#newsletter" },
+                { label: empresaLinks[2], href: "#newsletter" },
+                { label: empresaLinks[3], href: "#newsletter" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} className="font-sans text-sm text-white/50 hover:text-white transition-colors">{label}</a>
                 </li>
               ))}
             </ul>
@@ -1418,11 +1632,16 @@ export default function App() {
 
           {/* Col 3 — Soporte */}
           <div>
-            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">Soporte</h4>
+            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">{t("footer.soporte.title")}</h4>
             <ul className="space-y-3">
-              {["Centro de ayuda", "Contacto", "Feedback", "FAQ"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="font-sans text-sm text-white/50 hover:text-white transition-colors">{link}</a>
+              {[
+                { label: soporteLinks[0], href: "mailto:hola@vidaordenada.com" },
+                { label: soporteLinks[1], href: "mailto:hola@vidaordenada.com" },
+                { label: soporteLinks[2], href: "mailto:hola@vidaordenada.com?subject=Feedback" },
+                { label: soporteLinks[3], href: "#faq" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} className="font-sans text-sm text-white/50 hover:text-white transition-colors">{label}</a>
                 </li>
               ))}
             </ul>
@@ -1430,16 +1649,21 @@ export default function App() {
 
           {/* Col 4 — Contacto */}
           <div className="col-span-1">
-            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">Contacto</h4>
+            <h4 className="font-sans font-semibold text-white text-sm tracking-widest uppercase mb-5">{t("footer.contacto.title")}</h4>
             <ul className="space-y-3">
               <li>
                 <a href="mailto:hola@vidaordenada.com" className="font-sans text-sm text-white/50 hover:text-white transition-colors">
                   hola@vidaordenada.com
                 </a>
               </li>
-              {["Instagram", "LinkedIn", "TikTok", "YouTube"].map((link) => (
-                <li key={link}>
-                  <a href="#" className="font-sans text-sm text-white/50 hover:text-white transition-colors">{link}</a>
+              {[
+                { label: "Instagram", href: "https://instagram.com/vidaordenada" },
+                { label: "LinkedIn", href: "https://linkedin.com/company/vidaordenada" },
+                { label: "TikTok", href: "https://tiktok.com/@vidaordenada" },
+                { label: "YouTube", href: "https://youtube.com/@vidaordenada" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-white/50 hover:text-white transition-colors">{label}</a>
                 </li>
               ))}
             </ul>
@@ -1460,7 +1684,7 @@ export default function App() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 px-6 md:px-16 py-5 max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-sans text-xs text-white/30">
-            © 2026 Vida Ordenada. Todos los derechos reservados.
+            {t("footer.copyright")}
           </p>
           <div className="flex items-center gap-5 flex-wrap justify-center">
             {/* Payment icons */}
@@ -1510,9 +1734,13 @@ export default function App() {
             </div>
             {/* Legal links */}
             <div className="flex items-center gap-4">
-              {["Privacidad", "Términos", "Legal"].map((link) => (
-                <a key={link} href="#" className="font-sans text-xs text-white/30 hover:text-white/60 transition-colors">
-                  {link}
+              {[
+                { label: t("footer.privacy"), href: "mailto:hola@vidaordenada.com?subject=Política de Privacidad" },
+                { label: t("footer.terms"), href: "mailto:hola@vidaordenada.com?subject=Términos de uso" },
+                { label: t("footer.legal"), href: "mailto:hola@vidaordenada.com?subject=Legal" },
+              ].map(({ label, href }) => (
+                <a key={label} href={href} className="font-sans text-xs text-white/30 hover:text-white/60 transition-colors">
+                  {label}
                 </a>
               ))}
             </div>

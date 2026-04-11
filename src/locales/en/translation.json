@@ -1,0 +1,203 @@
+{
+  "nav": {
+    "features": "FEATURES",
+    "pricing": "PRICING",
+    "faq": "FAQ",
+    "cta": "Get started free",
+    "ariaSamu": "Open WhatsApp with Samu"
+  },
+  "hero": {
+    "badge": "💰 Personal finance app",
+    "titleLine1": "Your finances,",
+    "titleLine2": "in order.",
+    "subtitle1": "Track expenses, set budgets and understand where your money goes.",
+    "subtitle2": "Simple, visual, and no excuses.",
+    "cta": "Get started free →",
+    "availableOn": "Available on",
+    "ariaAppStore": "Notify me when available on App Store",
+    "ariaGooglePlay": "Notify me when available on Google Play"
+  },
+  "features": {
+    "badge": "features ✦",
+    "title": "Everything you need to understand your money",
+    "subtitle": "No spreadsheets, no complications.",
+    "cta": "Get started free"
+  },
+  "control": {
+    "titleHighlight": "Control",
+    "titleRest": "your money,",
+    "titleLine2": "in one place",
+    "learnMore": "Explore all features",
+    "desc": "Track every expense in seconds, visualize where your money goes, and make better financial decisions every month.",
+    "cards": [
+      { "title": "Expense tracking", "desc": "Log income and expenses by category in seconds." },
+      { "title": "Charts & reports", "desc": "See clearly where your money goes each month." },
+      { "title": "WhatsApp AI bot", "desc": "Send a message and Samu logs the expense automatically." },
+      { "title": "Budgets & goals", "desc": "Set category limits and reach your financial goals." }
+    ]
+  },
+  "sticky": {
+    "downloadApp": "Download the app free",
+    "slides": [
+      {
+        "label": "EXPENSE TRACKING",
+        "titleH1": "Track",
+        "titleMid": "\nin ",
+        "titleH2": "seconds",
+        "desc": "Every expense in its category, instantly. No spreadsheets, no complications. Just open the app, enter the amount, and done — your history always up to date.",
+        "phoneTitle": "Today · $9.300",
+        "phoneSubtitle": "4 recorded transactions",
+        "phoneContent": [
+          { "label": "Delivery", "status": "-$2.800" },
+          { "label": "Transport", "status": "-$1.200" },
+          { "label": "Pharmacy", "status": "-$3.500" },
+          { "label": "Streaming", "status": "-$1.800" }
+        ]
+      },
+      {
+        "label": "VISUAL REPORTS",
+        "titleH1": "Understand",
+        "titleMid": "\nyour ",
+        "titleH2": "money",
+        "desc": "Clear charts showing where your money goes each month. By category, by week, by habit. You'll see patterns you never noticed before.",
+        "phoneTitle": "March · $84.500",
+        "phoneSubtitle": "↓ 12% vs last month",
+        "phoneContent": [
+          { "label": "Food · 38%", "status": "$32.100" },
+          { "label": "Home · 27%", "status": "$22.800" },
+          { "label": "Transport · 20%", "status": "$16.900" },
+          { "label": "Leisure · 15%", "status": "$12.700" }
+        ]
+      },
+      {
+        "label": "WHATSAPP WITH AI",
+        "titlePre": "Talk to ",
+        "titleH1": "Samu.",
+        "titleMid": "\nHe records ",
+        "titleH2": "everything.",
+        "desc": "Send a message, an audio or a photo of the receipt and SAMU records it in the app automatically. No forms. No excuses. Just talk. Careful, SAMU likes to give advice 😜",
+        "phoneTitle": "Samu · AI Bot",
+        "phoneSubtitle": "● online now",
+        "phoneContent": [
+          { "label": "Spent $1500 on the bus", "status": "✅ Transport" },
+          { "label": "Lunch $3200", "status": "✅ Food" },
+          { "label": "How much did I spend today?", "status": "$4.700 in 2 expenses" },
+          { "label": "Coffee $900", "status": "✅ Recording..." }
+        ]
+      }
+    ],
+    "inputMethods": [
+      { "label": "Text message" },
+      { "label": "Voice note" },
+      { "label": "Receipt photo" }
+    ]
+  },
+  "pricing": {
+    "badge": "Plans",
+    "title": "Start today",
+    "subtitle": "Choose the plan that fits your lifestyle. No surprises, no fine print.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "savingsBadge": "✦ Save 40% with the yearly plan",
+    "savingsHint": "Switch to yearly and save 40% →",
+    "free": {
+      "name": "Free",
+      "period": "/ forever",
+      "features": [
+        "Unlimited expense and income tracking",
+        "Basic categories (food, transport, home…)",
+        "Simple monthly charts",
+        "Export data as CSV"
+      ],
+      "cta": "Get started free"
+    },
+    "pro": {
+      "name": "Pro",
+      "periodMonthly": "/ mo",
+      "periodYearly": "/ mo · $36/yr",
+      "popular": "✦ Popular",
+      "features": [
+        "Everything in Free included",
+        "WhatsApp AI bot to log expenses by chat",
+        "Budgets and savings goals",
+        "Cloud sync (all your devices)",
+        "Export as PDF and Excel",
+        "Priority support"
+      ],
+      "proHighlightIndex": 1,
+      "cta": "Start Pro",
+      "trial": "7 days free to try the Pro plan",
+      "disclaimer": "Cancel anytime · No credit card for the Free plan"
+    }
+  },
+  "faq": {
+    "badge": "FAQ",
+    "titleWord1": "Frequently Asked",
+    "titleWord2": "Questions",
+    "items": [
+      {
+        "q": "Does it work without internet?",
+        "a": "Yes. You can log expenses and income offline. The app saves them locally and syncs to the cloud as soon as you have a signal again. You never lose anything."
+      },
+      {
+        "q": "How does the WhatsApp bot work?",
+        "a": "It's simple: add Samu as a WhatsApp contact and message what you spent, for example 'Lunch $1800'. He categorizes and records it automatically. You can also ask him how much you've spent this month."
+      },
+      {
+        "q": "Is my data secure?",
+        "a": "Absolutely. Your data is transmitted encrypted and stored on secure servers. We don't share it with anyone or use it for advertising. Your financial information is yours and yours alone."
+      },
+      {
+        "q": "Can I use the app on multiple devices?",
+        "a": "With the Pro plan, yes. Your account syncs in real time between phone, tablet, and web. With the Free plan, data is saved locally on the device where you entered it."
+      },
+      {
+        "q": "What happens when the free trial ends?",
+        "a": "After 7 days, your account automatically switches to the Free plan. You won't be charged anything, and no card is required. If you want to keep Pro features, you can choose to subscribe then."
+      },
+      {
+        "q": "Is it available for iPhone?",
+        "a": "Yes. Vida Ordenada is available for iOS (iPhone and iPad), Android, and also from any web browser. Download it from the App Store, Google Play, or go directly to the web."
+      }
+    ]
+  },
+  "ctaSection": {
+    "titlePre": "Ready to ",
+    "titleHighlight": "organize",
+    "titlePost": "your finances?",
+    "downloadText": "Download Vida Ordenada",
+    "freeHighlight": "free",
+    "availableText": "Available on",
+    "andText": "and",
+    "downloadLabel": "Download on the",
+    "availableLabel": "Get it on",
+    "ariaAppStore": "Notify me when available on App Store",
+    "ariaGooglePlay": "Notify me when available on Google Play"
+  },
+  "newsletter": {
+    "title": "Join the community",
+    "subtitle1": "Subscribe and get 10% OFF your first Pro month.",
+    "subtitle2": "No spam, just content that transforms.",
+    "emailPlaceholder": "Your email",
+    "cta": "Get my 10% OFF",
+    "subscribed": "Subscribed! ✓"
+  },
+  "footer": {
+    "tagline": "The art of living with intention. Tools to organize your home, habits, and mind.",
+    "empresa": {
+      "title": "Company",
+      "links": ["About us", "Blog", "Community", "Testimonials"]
+    },
+    "soporte": {
+      "title": "Support",
+      "links": ["Help center", "Contact", "Feedback", "FAQ"]
+    },
+    "contacto": {
+      "title": "Contact"
+    },
+    "copyright": "© 2026 Vida Ordenada. All rights reserved.",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "legal": "Legal"
+  }
+}

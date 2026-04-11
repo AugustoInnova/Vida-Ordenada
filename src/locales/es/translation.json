@@ -1,0 +1,203 @@
+{
+  "nav": {
+    "features": "FUNCIONES",
+    "pricing": "PRECIOS",
+    "faq": "FAQ",
+    "cta": "Empezar gratis",
+    "ariaSamu": "Abrir WhatsApp con Samu"
+  },
+  "hero": {
+    "badge": "💰 App de finanzas personales",
+    "titleLine1": "Tus finanzas,",
+    "titleLine2": "en orden.",
+    "subtitle1": "Registrá gastos, armá presupuestos y entendé en qué se va tu dinero.",
+    "subtitle2": "Simple, visual y sin excusas.",
+    "cta": "Empezar gratis →",
+    "availableOn": "Disponible en",
+    "ariaAppStore": "Notificarme cuando esté disponible en App Store",
+    "ariaGooglePlay": "Notificarme cuando esté disponible en Google Play"
+  },
+  "features": {
+    "badge": "funciones ✦",
+    "title": "Todo lo que necesitás para entender tu plata",
+    "subtitle": "Sin planillas, sin complicaciones.",
+    "cta": "Empezá gratis"
+  },
+  "control": {
+    "titleHighlight": "Controlá",
+    "titleRest": "tu plata,",
+    "titleLine2": "en un solo lugar",
+    "learnMore": "Conocé todas las funciones",
+    "desc": "Registrá cada gasto en segundos, visualizá en qué se va tu dinero y tomá mejores decisiones financieras cada mes.",
+    "cards": [
+      { "title": "Registro de gastos", "desc": "Anotá ingresos y gastos con categorías en segundos." },
+      { "title": "Gráficos y reportes", "desc": "Visualizá en qué gastás cada mes de forma clara." },
+      { "title": "Bot de WhatsApp con IA", "desc": "Mandá un mensaje y Samu registra el gasto solo." },
+      { "title": "Presupuestos y metas", "desc": "Poné límites por categoría y cumplí tus objetivos." }
+    ]
+  },
+  "sticky": {
+    "downloadApp": "Descargá la app gratis",
+    "slides": [
+      {
+        "label": "REGISTRO DE GASTOS",
+        "titleH1": "Registrá",
+        "titleMid": "\nen ",
+        "titleH2": "segundos",
+        "desc": "Cada gasto en su categoría, al instante. Sin planillas, sin complicaciones. Solo abrís la app, cargás el monto y listo — tu historial siempre al día.",
+        "phoneTitle": "Hoy · $9.300",
+        "phoneSubtitle": "4 movimientos registrados",
+        "phoneContent": [
+          { "label": "Delivery", "status": "-$2.800" },
+          { "label": "Transporte", "status": "-$1.200" },
+          { "label": "Farmacia", "status": "-$3.500" },
+          { "label": "Streaming", "status": "-$1.800" }
+        ]
+      },
+      {
+        "label": "REPORTES VISUALES",
+        "titleH1": "Entendé",
+        "titleMid": "\ntu ",
+        "titleH2": "plata",
+        "desc": "Gráficos claros de en qué se va tu plata cada mes. Por categoría, por semana, por hábito. Vas a ver patrones que nunca habías notado.",
+        "phoneTitle": "Marzo · $84.500",
+        "phoneSubtitle": "↓ 12% vs mes anterior",
+        "phoneContent": [
+          { "label": "Comida · 38%", "status": "$32.100" },
+          { "label": "Hogar · 27%", "status": "$22.800" },
+          { "label": "Transporte · 20%", "status": "$16.900" },
+          { "label": "Ocio · 15%", "status": "$12.700" }
+        ]
+      },
+      {
+        "label": "WHATSAPP CON IA",
+        "titlePre": "Hablale a ",
+        "titleH1": "Samu.",
+        "titleMid": "\nÉl anota ",
+        "titleH2": "todo.",
+        "desc": "Mandále un mensaje, un audio o una foto del ticket y SAMU lo registra solo en la app. Sin formularios. Sin excusas. Solo hablás. Cuidado, a SAMU le gusta dar consejos 😜",
+        "phoneTitle": "Samu · Bot IA",
+        "phoneSubtitle": "● en línea ahora",
+        "phoneContent": [
+          { "label": "Gasté $1500 en el colectivo", "status": "✅ Transporte" },
+          { "label": "Almuerzo $3200", "status": "✅ Comida" },
+          { "label": "¿Cuánto gasté hoy?", "status": "$4.700 en 2 gastos" },
+          { "label": "Café $900", "status": "✅ Registrando..." }
+        ]
+      }
+    ],
+    "inputMethods": [
+      { "label": "Mensaje de texto" },
+      { "label": "Nota de voz" },
+      { "label": "Foto del gasto" }
+    ]
+  },
+  "pricing": {
+    "badge": "Planes",
+    "title": "Empezá hoy",
+    "subtitle": "Elegí el plan que se adapta a tu estilo de vida. Sin sorpresas, sin letra chica.",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "savingsBadge": "✦ Ahorrás 40% con el plan anual",
+    "savingsHint": "Pasate al anual y ahorrás 40% →",
+    "free": {
+      "name": "Free",
+      "period": "/ siempre",
+      "features": [
+        "Registro ilimitado de gastos e ingresos",
+        "Categorías básicas (comida, transporte, hogar…)",
+        "Gráficos simples por mes",
+        "Exportar datos en CSV"
+      ],
+      "cta": "Empezar gratis"
+    },
+    "pro": {
+      "name": "Pro",
+      "periodMonthly": "/ mes",
+      "periodYearly": "/ mes · $36/año",
+      "popular": "✦ Popular",
+      "features": [
+        "Todo lo del plan Free incluido",
+        "WhatsApp bot con IA para registrar gastos por chat",
+        "Presupuestos y metas de ahorro",
+        "Sincronización en la nube (todos tus dispositivos)",
+        "Exportar en PDF y Excel",
+        "Soporte prioritario"
+      ],
+      "proHighlightIndex": 1,
+      "cta": "Empezar Pro",
+      "trial": "7 días gratis para que pruebes el plan Pro",
+      "disclaimer": "Cancelá cuando quieras · Sin tarjeta de crédito para el plan Free"
+    }
+  },
+  "faq": {
+    "badge": "FAQ",
+    "titleWord1": "Preguntas",
+    "titleWord2": "Frecuentes",
+    "items": [
+      {
+        "q": "¿Funciona sin internet?",
+        "a": "Sí. Podés registrar gastos e ingresos sin conexión. La app los guarda localmente y los sincroniza con la nube en cuanto tenés señal de nuevo. Nunca perdés nada."
+      },
+      {
+        "q": "¿Cómo funciona el bot de WhatsApp?",
+        "a": "Es simple: agregás a Samu como contacto de WhatsApp y le escribís lo que gastaste, por ejemplo 'Almuerzo $1800'. Él lo categoriza y lo registra automáticamente. También podés preguntarle cuánto llevás gastado en el mes."
+      },
+      {
+        "q": "¿Mis datos están seguros?",
+        "a": "Totalmente. Tus datos viajan cifrados y se almacenan en servidores seguros. No los compartimos con nadie ni los usamos para publicidad. Tu información financiera es tuya y solo tuya."
+      },
+      {
+        "q": "¿Puedo usar la app en varios dispositivos?",
+        "a": "Con el plan Pro, sí. Tu cuenta se sincroniza en tiempo real entre el celular, la tablet y la web. Con el plan Free, los datos quedan guardados localmente en el dispositivo donde los cargaste."
+      },
+      {
+        "q": "¿Qué pasa cuando termina la prueba gratis?",
+        "a": "Al terminar los 7 días, tu cuenta pasa automáticamente al plan Free. No se te cobra nada ni se te pide tarjeta. Si querés seguir con las funciones Pro, ahí elegís si suscribirte o no."
+      },
+      {
+        "q": "¿Está disponible para iPhone?",
+        "a": "Sí. Vida Ordenada está disponible para iOS (iPhone y iPad), Android y también desde el navegador en cualquier computadora. Descargala desde el App Store, Google Play o entrá directo desde la web."
+      }
+    ]
+  },
+  "ctaSection": {
+    "titlePre": "¿Listo para ",
+    "titleHighlight": "ordenar",
+    "titlePost": "tu plata?",
+    "downloadText": "Descargá Vida Ordenada",
+    "freeHighlight": "gratis",
+    "availableText": "Disponible en",
+    "andText": "y",
+    "downloadLabel": "Descargar en el",
+    "availableLabel": "Disponible en",
+    "ariaAppStore": "Notificarme cuando esté en App Store",
+    "ariaGooglePlay": "Notificarme cuando esté en Google Play"
+  },
+  "newsletter": {
+    "title": "Unite a la comunidad",
+    "subtitle1": "Suscribite y recibí un 10% OFF en tu primer mes Pro.",
+    "subtitle2": "Sin spam, solo contenido que transforma.",
+    "emailPlaceholder": "Tu email",
+    "cta": "Quiero mi 10% OFF",
+    "subscribed": "¡Suscripto! ✓"
+  },
+  "footer": {
+    "tagline": "El arte de vivir con intención. Herramientas para organizar tu hogar, tus hábitos y tu mente.",
+    "empresa": {
+      "title": "Empresa",
+      "links": ["Sobre nosotros", "Blog", "Comunidad", "Testimonios"]
+    },
+    "soporte": {
+      "title": "Soporte",
+      "links": ["Centro de ayuda", "Contacto", "Feedback", "FAQ"]
+    },
+    "contacto": {
+      "title": "Contacto"
+    },
+    "copyright": "© 2026 Vida Ordenada. Todos los derechos reservados.",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "legal": "Legal"
+  }
+}
