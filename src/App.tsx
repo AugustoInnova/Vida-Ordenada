@@ -127,8 +127,8 @@ function PricingSection() {
             {yearly ? (
               <motion.span
                 initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
-                className="text-[7px] font-bold px-3 py-1 rounded-full"
-                style={{ backgroundColor: "#8ECB9B", color: "#000", fontFamily: "'Press Start 2P', monospace" }}>
+                className="text-[11px] font-sans font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap"
+                style={{ backgroundColor: "#8ECB9B", color: "#000" }}>
                 {t("pricing.savingsBadge")}
               </motion.span>
             ) : (
@@ -1145,8 +1145,8 @@ export default function App() {
             transition={{ duration: 1, delay: 0.55, ease: "easeOut" }}
             className="max-w-xl text-base md:text-xl font-sans font-light text-white/70 leading-relaxed mb-10"
           >
-            {t("hero.subtitle1")}<br className="hidden md:block" />
-            {t("hero.subtitle2")}
+            <span className="block">{t("hero.subtitle1")}</span>
+            <span className="block mt-2">{t("hero.subtitle2")}</span>
           </motion.p>
 
           {/* CTA principal */}

@@ -32,8 +32,8 @@
     "cards": [
       { "title": "Registro de gastos", "desc": "Anotá ingresos y gastos con categorías en segundos." },
       { "title": "Gráficos y reportes", "desc": "Visualizá en qué gastás cada mes de forma clara." },
-      { "title": "Bot de WhatsApp con IA", "desc": "Mandá un mensaje y Samu registra el gasto solo." },
-      { "title": "Presupuestos y metas", "desc": "Poné límites por categoría y cumplí tus objetivos." }
+      { "title": "Bot de WhatsApp con IA", "desc": "Enviá un mensaje y Samu registra el gasto solo." },
+      { "title": "Presupuestos y metas", "desc": "Colocá límites por categoría y cumplí tus objetivos." }
     ]
   },
   "sticky": {
@@ -44,7 +44,7 @@
         "titleH1": "Registrá",
         "titleMid": "\nen ",
         "titleH2": "segundos",
-        "desc": "Cada gasto en su categoría, al instante. Sin planillas, sin complicaciones. Solo abrís la app, cargás el monto y listo — tu historial siempre al día.",
+        "desc": "Cada gasto en su categoría, al instante. Sin planillas, sin complicaciones. Solo abrís la app, cargás el monto y listo. Tu historial siempre al día.",
         "phoneTitle": "Hoy · $9.300",
         "phoneSubtitle": "4 movimientos registrados",
         "phoneContent": [
@@ -75,7 +75,7 @@
         "titleH1": "Samu.",
         "titleMid": "\nÉl anota ",
         "titleH2": "todo.",
-        "desc": "Mandále un mensaje, un audio o una foto del ticket y SAMU lo registra solo en la app. Sin formularios. Sin excusas. Solo hablás. Cuidado, a SAMU le gusta dar consejos 😜",
+        "desc": "Enviá un mensaje, un audio o una foto del ticket y SAMU lo registra solo en la app. Sin formularios. Sin excusas. Solo hablás. Cuidado, a SAMU le gusta dar consejos 😜",
         "phoneTitle": "Samu · Bot IA",
         "phoneSubtitle": "● en línea ahora",
         "phoneContent": [
@@ -117,7 +117,7 @@
       "periodYearly": "/ mes · $36/año",
       "popular": "✦ Popular",
       "features": [
-        "Todo lo del plan Free incluido",
+        "Incluye plan Free",
         "WhatsApp bot con IA para registrar gastos por chat",
         "Presupuestos y metas de ahorro",
         "Sincronización en la nube (todos tus dispositivos)",
@@ -127,7 +127,7 @@
       "proHighlightIndex": 1,
       "cta": "Empezar Pro",
       "trial": "7 días gratis para que pruebes el plan Pro",
-      "disclaimer": "Cancelá cuando quieras · Sin tarjeta de crédito para el plan Free"
+      "disclaimer": "Cancelá cuando quieras"
     }
   },
   "faq": {
