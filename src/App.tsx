@@ -2,6 +2,7 @@ import React from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import {
   Play, ArrowRight, Mail,
   Layers, Key, Palette, Package, CheckCircle, Leaf,
@@ -1734,8 +1735,10 @@ export default function App() {
             </div>
             {/* Legal links */}
             <div className="flex items-center gap-4">
+              <Link to="/privacy" className="font-sans text-xs text-white/30 hover:text-white/60 transition-colors">
+                {t("footer.privacy")}
+              </Link>
               {[
-                { label: t("footer.privacy"), href: "mailto:hola@vidaordenada.com?subject=Política de Privacidad" },
                 { label: t("footer.terms"), href: "mailto:hola@vidaordenada.com?subject=Términos de uso" },
                 { label: t("footer.legal"), href: "mailto:hola@vidaordenada.com?subject=Legal" },
               ].map(({ label, href }) => (

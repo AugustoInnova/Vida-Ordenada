@@ -182,6 +182,11 @@
     "cta": "Get my 10% OFF",
     "subscribed": "Subscribed! ✓"
   },
+  "privacy": {
+    "kicker": "Vida Ordenada",
+    "title": "Privacy Policy",
+    "back": "Back to home"
+  },
   "footer": {
     "tagline": "The art of living with intention. Tools to organize your home, habits, and mind.",
     "empresa": {

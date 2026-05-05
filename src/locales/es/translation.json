@@ -182,6 +182,11 @@
     "cta": "Quiero mi 10% OFF",
     "subscribed": "¡Suscripto! ✓"
   },
+  "privacy": {
+    "kicker": "Vida Ordenada",
+    "title": "Política de Privacidad",
+    "back": "Volver al inicio"
+  },
   "footer": {
     "tagline": "El arte de vivir con intención. Herramientas para organizar tu hogar, tus hábitos y tu mente.",
     "empresa": {
