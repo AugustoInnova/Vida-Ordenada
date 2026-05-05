@@ -10,5 +10,4 @@ coverage/
 # Claude Code local settings
 .claude/
 
-# Termly raw HTML source (bundled by Vite via ?raw import)
-politica_termly.html
+
