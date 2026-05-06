@@ -95,46 +95,65 @@ export default function App() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
 
-  // Nav theme tracker — re-attaches to new [data-nav-theme] nodes as lazy
-  // sections mount, so the dark/light pill colour follows the current section
-  // even when those sections arrive after first paint.
+  // Nav theme tracker — deferred to idle so the IntersectionObserver setup
+  // does not run during the LCP critical path. Re-attaches to new
+  // [data-nav-theme] nodes as lazy sections mount.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setNavDark(entry.target.getAttribute("data-nav-theme") === "dark");
+    let observer: IntersectionObserver | null = null;
+    let mo: MutationObserver | null = null;
+    let rafScheduled = 0;
+    let cancelled = false;
+
+    const init = () => {
+      if (cancelled) return;
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setNavDark(entry.target.getAttribute("data-nav-theme") === "dark");
+            }
+          });
+        },
+        { rootMargin: "-44px 0px -94% 0px", threshold: 0 }
+      );
+      const observed = new WeakSet<Element>();
+      const attach = () => {
+        document.querySelectorAll("[data-nav-theme]").forEach((s) => {
+          if (!observed.has(s)) {
+            observer!.observe(s);
+            observed.add(s);
           }
         });
-      },
-      { rootMargin: "-44px 0px -94% 0px", threshold: 0 }
-    );
-    const observed = new WeakSet<Element>();
-    const attach = () => {
-      document.querySelectorAll("[data-nav-theme]").forEach((s) => {
-        if (!observed.has(s)) {
-          observer.observe(s);
-          observed.add(s);
-        }
-      });
+      };
+      // Batch attach() into a single rAF tick so a burst of mutations from a
+      // lazy chunk mounting only triggers one DOM query per frame.
+      const scheduleAttach = () => {
+        if (rafScheduled) return;
+        rafScheduled = requestAnimationFrame(() => {
+          rafScheduled = 0;
+          attach();
+        });
+      };
+      attach();
+      mo = new MutationObserver(scheduleAttach);
+      mo.observe(document.body, { childList: true, subtree: true });
     };
-    // Batch attach() into a single rAF tick so a burst of mutations from a
-    // lazy chunk mounting only triggers one DOM query per frame.
-    let rafScheduled = 0;
-    const scheduleAttach = () => {
-      if (rafScheduled) return;
-      rafScheduled = requestAnimationFrame(() => {
-        rafScheduled = 0;
-        attach();
-      });
+
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
     };
-    attach();
-    const mo = new MutationObserver(scheduleAttach);
-    mo.observe(document.body, { childList: true, subtree: true });
+    const handle = w.requestIdleCallback
+      ? w.requestIdleCallback(init, { timeout: 1000 })
+      : (setTimeout(init, 200) as unknown as number);
+
     return () => {
-      observer.disconnect();
-      mo.disconnect();
+      cancelled = true;
+      if (observer) observer.disconnect();
+      if (mo) mo.disconnect();
       if (rafScheduled) cancelAnimationFrame(rafScheduled);
+      if (w.cancelIdleCallback) w.cancelIdleCallback(handle);
+      else clearTimeout(handle as unknown as ReturnType<typeof setTimeout>);
     };
   }, []);
 
@@ -379,16 +398,11 @@ export default function App() {
             {t("hero.badge")}
           </motion.div>
 
-          {/* Título */}
-          <motion.h1
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[8.25rem] md:text-[15rem] lg:text-[19.5rem] leading-[1] tracking-tighter text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] mb-6"
-          >
+          {/* Título — LCP element, renderiza inmediatamente sin animación */}
+          <h1 className="text-[8.25rem] md:text-[15rem] lg:text-[19.5rem] leading-[1] tracking-tighter text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] mb-6">
             {t("hero.titleLine1")}<br />
             <span style={{ color: "#8ECB9B" }}>{t("hero.titleLine2")}</span>
-          </motion.h1>
+          </h1>
 
           {/* Subtítulo */}
           <motion.p

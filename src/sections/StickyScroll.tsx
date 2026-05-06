@@ -158,7 +158,7 @@ function PhoneScreen({ slide, visible }: { slide: StickySlide; visible: boolean 
             <img
               src={slide.image}
               srcSet={cldSrcSet(slide.image)}
-              sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
+              sizes="(max-width: 768px) 220px, (max-width: 1024px) 290px, 322px"
               alt={slide.label}
               loading="lazy"
               width={1080}
