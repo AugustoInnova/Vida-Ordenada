@@ -27,6 +27,8 @@ export default function NewsletterSection() {
             sizes="200px"
             alt="Samu con sobre de email"
             loading="lazy"
+            width={1080}
+            height={1080}
             style={{ height: 140, width: "auto", objectFit: "contain", display: "block", mixBlendMode: "screen" }}
           />
         </div>

@@ -19,6 +19,8 @@ export default function FooterSection() {
         srcSet={cldSrcSet(SAMU_FOOTER_URL, [400, 600])}
         sizes="200px"
         alt="Samu"
+        width={1080}
+        height={1080}
         animate={{ y: [0, -12, 0] }}
         transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
         className="hidden md:block"
@@ -144,6 +146,8 @@ export default function FooterSection() {
             srcSet={cldSrcSet(SAMU_FOOTER_URL, [400, 600])}
             sizes="160px"
             alt="Samu"
+            width={1080}
+            height={1080}
             animate={{ y: [0, -16, 0] }}
             transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
             style={{ height: "140px", width: "auto", objectFit: "contain" }}

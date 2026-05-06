@@ -15,12 +15,20 @@ export default function PricingSection() {
   return (
     <section id="precios" className="relative w-full py-28 px-6 overflow-hidden">
       {/* Desktop video (≥ md) */}
-      <video autoPlay muted loop playsInline preload="none" className="hidden md:block absolute inset-0 w-full h-full object-cover">
-        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775885790/seccion_de_compra_lalkxn.mp4" type="video/mp4" />
+      <video
+        autoPlay muted loop playsInline preload="none"
+        poster="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,w_1200/v1775885790/seccion_de_compra_lalkxn.jpg"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,vc_auto/v1775885790/seccion_de_compra_lalkxn.mp4" type="video/mp4" />
       </video>
       {/* Mobile video (< md) — portrait crop via Cloudinary for sharper rendering on tall mobile viewport */}
-      <video autoPlay muted loop playsInline preload="metadata" className="block md:hidden absolute inset-0 w-full h-full object-cover object-center">
-        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/q_auto:best,f_auto,c_fill,g_center,ar_9:16,w_720/v1774768412/Character_swimming_looped_202603290413_rtuw11.mp4" type="video/mp4" />
+      <video
+        autoPlay muted loop playsInline preload="none"
+        poster="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,c_fill,g_center,ar_9:16,w_720/v1774768412/Character_swimming_looped_202603290413_rtuw11.jpg"
+        className="block md:hidden absolute inset-0 w-full h-full object-cover object-center"
+      >
+        <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/q_auto:best,f_auto,vc_auto,c_fill,g_center,ar_9:16,w_720/v1774768412/Character_swimming_looped_202603290413_rtuw11.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/60" />
 

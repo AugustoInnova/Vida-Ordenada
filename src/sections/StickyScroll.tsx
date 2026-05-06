@@ -151,7 +151,7 @@ function PhoneScreen({ slide, visible }: { slide: StickySlide; visible: boolean 
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
             />
           ) : slide.image ? (
@@ -161,6 +161,8 @@ function PhoneScreen({ slide, visible }: { slide: StickySlide; visible: boolean 
               sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
               alt={slide.label}
               loading="lazy"
+              width={1080}
+              height={2400}
               style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
             />
           ) : <>

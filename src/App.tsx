@@ -89,6 +89,7 @@ export default function App() {
   const navRef = useRef<HTMLElement>(null);
   const [navDark, setNavDark] = useState(true);
   const [mobileLangOpen, setMobileLangOpen] = useState(false);
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const activeLang = LANGUAGES.find(l => i18n.resolvedLanguage === l.code || i18n.language === l.code) ?? LANGUAGES[0];
   const ActiveFlag = activeLang.Flag;
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -117,10 +118,24 @@ export default function App() {
         }
       });
     };
+    // Batch attach() into a single rAF tick so a burst of mutations from a
+    // lazy chunk mounting only triggers one DOM query per frame.
+    let rafScheduled = 0;
+    const scheduleAttach = () => {
+      if (rafScheduled) return;
+      rafScheduled = requestAnimationFrame(() => {
+        rafScheduled = 0;
+        attach();
+      });
+    };
     attach();
-    const mo = new MutationObserver(attach);
+    const mo = new MutationObserver(scheduleAttach);
     mo.observe(document.body, { childList: true, subtree: true });
-    return () => { observer.disconnect(); mo.disconnect(); };
+    return () => {
+      observer.disconnect();
+      mo.disconnect();
+      if (rafScheduled) cancelAnimationFrame(rafScheduled);
+    };
   }, []);
 
   // Prefetch lazy section chunks once the browser is idle, so they are ready
@@ -159,10 +174,25 @@ export default function App() {
         {/* Gradient color overlay */}
         <div className="absolute inset-0 z-0 bg-gradient-to-tr from-purple-900/40 via-blue-900/20 to-pink-900/40 opacity-80 mix-blend-overlay" />
 
-        {/* Video background */}
+        {/* Video background — poster covers immediately, video fades in onCanPlay */}
         <motion.div style={{ y: heroY }} className="absolute inset-0 z-0 opacity-45">
-          <video autoPlay muted loop playsInline preload="metadata" className="w-full h-full object-cover">
-            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775884810/VIDEO_PRINCIPAL_DEL_SITIO_upskrh.mp4" type="video/mp4" />
+          {/* Poster as background image — visible until the video is ready */}
+          <div
+            className="absolute inset-0 w-full h-full bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url(https://res.cloudinary.com/dd1rxqm7v/video/upload/so_0,f_auto,q_auto,w_800/v1775884810/VIDEO_PRINCIPAL_DEL_SITIO_upskrh.jpg)",
+            }}
+            aria-hidden="true"
+          />
+          {/* Video fades in once the browser reports it can play */}
+          <video
+            autoPlay muted loop playsInline preload="none"
+            onCanPlay={() => setHeroVideoReady(true)}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[800ms] ease-out"
+            style={{ opacity: heroVideoReady ? 1 : 0 }}
+          >
+            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,vc_auto/v1775884810/VIDEO_PRINCIPAL_DEL_SITIO_upskrh.mp4" type="video/mp4" />
           </video>
         </motion.div>
 
@@ -173,10 +203,10 @@ export default function App() {
         {/* ── NAV — centered floating pill ── */}
         <motion.nav
           ref={navRef as React.RefObject<HTMLElement>}
-          initial={{ y: -80, x: "-50%", opacity: 0 }}
-          animate={{ y: 0, x: "-50%", opacity: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-6 left-1/2 z-50 flex items-center gap-8 px-6 py-3 rounded-full backdrop-blur-2xl font-sans transition-all duration-300"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="fixed top-6 inset-x-0 mx-auto w-fit z-50 flex items-center gap-8 px-6 py-3 rounded-full backdrop-blur-2xl font-sans transition-all duration-300"
           style={{
             background: navDark ? "rgba(255,255,255,0.08)" : "rgba(237,232,224,0.95)",
             border: navDark ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(0,0,0,0.10)",

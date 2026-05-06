@@ -71,6 +71,8 @@ export default function PillarsSection() {
                     sizes="210px"
                     alt={`Screen ${(i % 8) + 1}`}
                     loading="lazy"
+                    width={1080}
+                    height={2400}
                     style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
                   />
                 </div>

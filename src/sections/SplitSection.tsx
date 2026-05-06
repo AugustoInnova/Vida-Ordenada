@@ -21,7 +21,8 @@ export default function SplitSection() {
 
           {/* Video */}
           <video
-            autoPlay muted loop playsInline preload="metadata"
+            autoPlay muted loop playsInline preload="none"
+            poster="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,w_600/v1775883988/hf_20260411_045213_b78e7a30-694c-440f-9ad3-b8bb9dee3212_q3m4lz.jpg"
             className="relative z-20 object-contain w-full h-auto"
             style={{
               maxWidth: "min(92%, 600px)",
@@ -29,7 +30,7 @@ export default function SplitSection() {
               boxShadow: "0 30px 80px rgba(0,0,0,0.4), 0 0 60px rgba(142,203,155,0.15)",
             }}
           >
-            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/v1775883988/hf_20260411_045213_b78e7a30-694c-440f-9ad3-b8bb9dee3212_q3m4lz.mp4" type="video/mp4" />
+            <source src="https://res.cloudinary.com/dd1rxqm7v/video/upload/f_auto,q_auto,vc_auto/v1775883988/hf_20260411_045213_b78e7a30-694c-440f-9ad3-b8bb9dee3212_q3m4lz.mp4" type="video/mp4" />
           </video>
 
         </div>

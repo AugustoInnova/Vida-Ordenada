@@ -55,10 +55,12 @@ export default function CtaDownloadSection() {
           <img
             src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg"
             srcSet={cldSrcSet("https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg")}
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 600px, 900px"
+            sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
             alt="Samu"
             loading="lazy"
-            style={{ width: "100%", display: "block", objectFit: "cover" }}
+            width={1200}
+            height={800}
+            style={{ width: "100%", height: "auto", display: "block", objectFit: "cover" }}
           />
           {/* Gradientes que funden los bordes con el fondo de la sección */}
           <div style={{
