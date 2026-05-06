@@ -9,6 +9,12 @@ import {
   ChevronDown, ChevronUp
 } from "lucide-react";
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+const cldVariant = (url: string, w: number) => url.replace(/w_\d+|w_auto/, `w_${w}`);
+const cldSrcSet = (url: string, widths: number[] = [400, 600, 800]) =>
+  widths.map((w) => `${cldVariant(url, w)} ${w}w`).join(", ");
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const hogarCards = [
@@ -282,7 +288,7 @@ const stickySlidesMeta: StickySlideMeta[] = [
       { icon: "💊", done: true },
       { icon: "🎬", done: false },
     ],
-    image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853456/22_e9oykj.png",
+    image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853456/22_e9oykj.png",
   },
   {
     bg: "#8ECB9B",
@@ -297,7 +303,7 @@ const stickySlidesMeta: StickySlideMeta[] = [
       { icon: "🚗", done: true },
       { icon: "🎬", done: false },
     ],
-    image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853450/14_zkjbyz.png",
+    image: "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853450/14_zkjbyz.png",
   },
   {
     bg: "#111111",
@@ -415,6 +421,8 @@ function PhoneScreen({ slide, visible }: { slide: StickySlide; visible: boolean 
           ) : slide.image ? (
             <img
               src={slide.image}
+              srcSet={cldSrcSet(slide.image)}
+              sizes="(max-width: 768px) 400px, (max-width: 1024px) 600px, 800px"
               alt={slide.label}
               loading="lazy"
               style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
@@ -1226,14 +1234,14 @@ export default function App() {
             {Array.from({ length: 16 }).map((_, i) => {
               const angle = i * 22.5; // 0°, 22.5°, 45°, … 337.5°
               const srcs = [
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853456/22_e9oykj.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853451/18_h6x3qc.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853451/19_ywr53m.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853451/21_n5grax.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853450/16_tf4mt6.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853450/14_zkjbyz.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853450/12_b48me7.png",
-                "https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774853446/4_nfdwki.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853456/22_e9oykj.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853451/18_h6x3qc.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853451/19_ywr53m.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853451/21_n5grax.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853450/16_tf4mt6.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853450/14_zkjbyz.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853450/12_b48me7.png",
+                "https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774853446/4_nfdwki.png",
               ];
               return (
                 /* Slot: posiciona el celular en el arco, su rotación también inclina el celular */
@@ -1262,6 +1270,8 @@ export default function App() {
                     }} />
                     <img
                       src={srcs[i % 8]}
+                      srcSet={cldSrcSet(srcs[i % 8], [400, 600, 800])}
+                      sizes="210px"
                       alt={`Screen ${(i % 8) + 1}`}
                       loading="lazy"
                       style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
@@ -1446,7 +1456,7 @@ export default function App() {
             {/* Google Play */}
             <a href="#newsletter" className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-black text-white hover:bg-neutral-800 transition-colors" aria-label={t("ctaSection.ariaGooglePlay")}>
               <img
-                src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774869659/images_-_Editado_s2vkha.png"
+                src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774869659/images_-_Editado_s2vkha.png"
                 alt="Google Play"
                 loading="lazy"
                 width={30}
@@ -1465,7 +1475,9 @@ export default function App() {
         <div style={{ position: "relative", zIndex: 1, marginTop: "48px", display: "flex", justifyContent: "center" }}>
           <div style={{ position: "relative", width: "100%", maxWidth: "900px" }}>
             <img
-              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg"
+              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg"
+              srcSet={cldSrcSet("https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774970827/hace_la_imagen_202603311226_lhcr4o.jpg")}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 600px, 900px"
               alt="Samu"
               loading="lazy"
               style={{ width: "100%", display: "block", objectFit: "cover" }}
@@ -1493,7 +1505,9 @@ export default function App() {
           {/* Samu + sobre */}
           <div className="flex justify-center mb-0">
             <img
-              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774971662/unifica_estas_2_202603311230_twocyc.jpg"
+              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774971662/unifica_estas_2_202603311230_twocyc.jpg"
+              srcSet={cldSrcSet("https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774971662/unifica_estas_2_202603311230_twocyc.jpg", [400, 600])}
+              sizes="200px"
               alt="Samu con sobre de email"
               loading="lazy"
               style={{ height: 140, width: "auto", objectFit: "contain", display: "block", mixBlendMode: "screen" }}
@@ -1550,7 +1564,9 @@ export default function App() {
 
         {/* Samu — personaje flotante, solo en desktop */}
         <motion.img
-          src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png"
+          src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png"
+          srcSet={cldSrcSet("https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png", [400, 600])}
+          sizes="200px"
           alt="Samu"
           animate={{ y: [0, -12, 0] }}
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
@@ -1673,7 +1689,9 @@ export default function App() {
           {/* Samu — solo mobile, columna derecha de la fila de Contacto */}
           <div className="sm:hidden flex items-end justify-center col-span-1">
             <motion.img
-              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png"
+              src="https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png"
+              srcSet={cldSrcSet("https://res.cloudinary.com/dd1rxqm7v/image/upload/f_auto,q_auto,w_400/v1774834572/Dise%C3%B1o_sin_t%C3%ADtulo_12_jddcai.png", [400, 600])}
+              sizes="160px"
               alt="Samu"
               animate={{ y: [0, -16, 0] }}
               transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
